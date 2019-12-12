@@ -30,8 +30,32 @@ def create_use_files
   copy_file '.rubocop.yml'
   copy_file 'todo.md'
 
+  apply 'bin/template.rb'
   apply 'config/template.rb'
   apply 'spec/template.rb'
+end
+
+# rails newだけで即座にsample pageを作れた方が、DX的にありがたいので、
+# setupやscaffoldをrails newの中で行う
+def run_rails_setup_commands!
+  run 'bin/setup'
+  run 'bin/webpack'
+end
+
+def scaffold_sample_pages
+  return unless yes? 'need example page? [y/n]'
+
+  generate(:scaffold, 'book name:string')
+  route "root to: 'books#index'"
+  route 'resources :books'
+end
+
+def git_commit
+  return unless yes? 'git commit? [y/n]'
+
+  git :init
+  git add: '-A .'
+  git commit: %Q{ -m '🎁 Initial commit' }
 end
 
 # https://github.com/erikhuda/thor/blob/2115b7accb42e0acca330ba694552322386994a5/lib/thor/actions.rb#L127
@@ -43,3 +67,6 @@ def setup_source_paths
 end
 
 setup_rails_apllication!
+run_rails_setup_commands!
+scaffold_sample_pages
+git_commit
