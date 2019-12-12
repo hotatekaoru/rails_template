@@ -30,6 +30,7 @@ def create_use_files
   copy_file '.rubocop.yml'
   copy_file 'todo.md'
 
+  apply 'bin/template.rb'
   apply 'config/template.rb'
   apply 'spec/template.rb'
 end
