@@ -1,0 +1,9 @@
+# https://github.com/DamirSvrtan/fasterer
+
+speedups:
+  # コードの簡潔さを優先
+  each_with_index_vs_while: false
+
+exclude_paths:
+  - 'vendor/**/*.rb'
+  - 'db/schema.rb'

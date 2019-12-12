@@ -1,0 +1,36 @@
+defaults: &defaults
+  app_name: app_name
+
+development:
+  <<: *defaults
+  hosts:
+    admin: &host admin.dev
+  url_options: &url_options
+    :protocol: https
+    :host: *host
+  mailer:
+    :perform_caching: false
+    :delivery_method: :smtp
+    :smtp_settings:
+      :address: mailcatcher
+      :port: 1025
+    :default_url_options: *url_options
+  redis:
+    :url: redis://redis
+  rollbar:
+    access_token:
+
+test:
+  <<: *defaults
+  hosts:
+    admin: admin.local
+  rollbar:
+    access_token:
+staging:
+  <<: *defaults
+  hosts:
+    admin: stg-admin.jp
+production:
+  <<: *defaults
+  hosts:
+    admin: admin.jp

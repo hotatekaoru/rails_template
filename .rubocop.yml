@@ -1,0 +1,101 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    # 自動生成されるファイルや外部ライブラリは制御できないのでチェック対象外
+    - bin/**/*
+    - config/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - node_modules/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.6
+
+# Avoid long blocks with many lines
+Metrics/BlockLength:
+  # ファイル丸ごとブロックに入りそうなファイルは行数制限から外す
+  Exclude:
+    - config/environments/*.rb
+    - config/routes.rb
+    - spec/factories/*
+    - spec/**/*_spec.rb
+
+Metrics/LineLength:
+  Max: 120
+
+Style/AsciiComments:
+  Enabled: false
+
+# The `context_dependent` style checks that the last parameter
+# doesn't have braces around it, but requires braces if the
+# second to last parameter is also a hash literal.
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/BracesAroundHashParameters
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/Documentation:
+  Enabled: false
+
+################################
+# rubocop-rails
+# https://github.com/rubocop-hq/rubocop-rails
+################################
+# https://github.com/rubocop-hq/rubocop-jp/issues/54
+# capybaraのfind_by_idが、railsのfind_by_id(使ってはいけない)と検知されエラーになるのを防ぐ
+Rails/DynamicFindBy:
+  Exclude:
+    - spec/features/**/*
+
+# update_allやincrement!などのvalidationを行わない更新処理を許容したい
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - staging
+    - production
+
+################################
+# rubocop-rspec
+# https://github.com/rubocop-hq/rubocop-rspec
+################################
+
+# RSpecのContextの文言を日本語で書いているため、英語のフォーマット指定をdisableする
+RSpec/ContextWording:
+  Enabled: false
+
+# RSpecのdescribeを文言にしたいケースもあるため。
+# 1つのcontrollerのアクションを複数のファイルでテストするケースや
+# 複数のclassをまとめて1つのcontrollerでテストする時など
+RSpec/DescribeClass:
+  Enabled: false
+
+# APIの返却値テストなど、たくさんの項目を1つのitブロック内でテストしたい
+RSpec/ExampleLength:
+  Enabled: false
+
+# 検索処理の確認など、「特定のもののみ抽出できること」のチェック時は、let!を使ってレコードを作成したい
+# RSpecのlet!を制限して無駄なクエリを発行するのはテストが遅くなるため避けたい
+RSpec/LetSetup:
+  Enabled: false
+
+# APIの返却値テストなど、複数の項目を1つのitブロック内でテストしたい
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# RSpecでネストが深くなるのは、ある程度は仕方がないと判断
+# ただ、これ以上深くなる場合は、ファイルを分けたり、describeとして分けたりしてほしい
+RSpec/NestedGroups:
+  Max: 4
+
+# APIの返却値テストなど、たくさんの項目を1つのitブロック内でテストしたい
+RSpec/ScatteredLet:
+  Enabled: false

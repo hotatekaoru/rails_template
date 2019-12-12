@@ -1,0 +1,9 @@
+# ルール
+# https://github.com/sds/haml-lint/blob/master/lib/haml_lint/linter/README.md
+
+linters:
+  LineLength:
+    max: 140
+
+  ViewLength:
+    enabled: false
