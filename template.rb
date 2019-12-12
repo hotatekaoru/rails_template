@@ -34,6 +34,13 @@ def create_use_files
   apply 'spec/template.rb'
 end
 
+# rails newだけで即座にsample pageを作れた方が、DX的にありがたいので、
+# setupやscaffoldをrails newの中で行う
+def run_rails_setup_commands!
+  run 'bin/setup'
+  run 'bin/webpack'
+end
+
 # https://github.com/erikhuda/thor/blob/2115b7accb42e0acca330ba694552322386994a5/lib/thor/actions.rb#L127
 # source_pathsメソッドを上書きしてテンプレートの位置を指定し、
 # templateメソッドやcopy_fileメソッドでテンプレートの位置からの相対パスを指定できるようにする
@@ -43,3 +50,4 @@ def setup_source_paths
 end
 
 setup_rails_apllication!
+run_rails_setup_commands!
