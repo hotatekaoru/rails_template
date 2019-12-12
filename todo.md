@@ -1,0 +1,1 @@
+- [ ] application.ymlのhostなどの設定

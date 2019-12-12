@@ -28,6 +28,9 @@ def create_use_files
   copy_file '.fasterer.yml'
   copy_file '.haml-lint.yml'
   copy_file '.rubocop.yml'
+  copy_file 'todo.md'
+
+  apply 'config/template.rb'
 end
 
 # https://github.com/erikhuda/thor/blob/2115b7accb42e0acca330ba694552322386994a5/lib/thor/actions.rb#L127
