@@ -42,6 +42,14 @@ def run_rails_setup_commands!
   run 'bin/webpack'
 end
 
+def scaffold_sample_pages
+  return unless yes? 'need example page? [y/n]'
+
+  generate(:scaffold, 'book name:string')
+  route "root to: 'books#index'"
+  route 'resources :books'
+end
+
 # https://github.com/erikhuda/thor/blob/2115b7accb42e0acca330ba694552322386994a5/lib/thor/actions.rb#L127
 # source_pathsメソッドを上書きしてテンプレートの位置を指定し、
 # templateメソッドやcopy_fileメソッドでテンプレートの位置からの相対パスを指定できるようにする
@@ -52,3 +60,4 @@ end
 
 setup_rails_apllication!
 run_rails_setup_commands!
+scaffold_sample_pages
