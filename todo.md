@@ -1,3 +1,4 @@
 - [ ] application.ymlのhostなどの設定
+- [ ] README.md に必要な設定を記載
 - [ ] Rollbarの設定、設定ファイル（config/initializers/rollbar.rb）の修正
 - [ ] NewRelicの設定、設定ファイル(config/newrelic.yml)の修正

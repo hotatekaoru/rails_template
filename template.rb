@@ -4,8 +4,7 @@ def setup_rails_apllication!
   setup_source_paths
 
   template 'Gemfile', force: true
-  template 'README.md', force: true
-
+  copy_file 'README.sample.md', 'README.md', force: true
   remove_unuse_files
   create_use_files
 
